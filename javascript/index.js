@@ -36,52 +36,59 @@ function printMilliseconds() {
 }
 
 function printSplit() {
-  // ... your code goes here
+  const split = chronometer.split();
+  const splitElement = document.createElement('li');
+  splitElement.innerHTML = split;
+  splitsElement.appendChild(splitElement);
 }
 
 function clearSplits() {
-  // ... your code goes here
+  splitsElement.innerHTML = '';
 }
 
 function setStopBtn() {
-  // ... your code goes here
+  btnLeftElement.classList.remove('start');
+  btnLeftElement.classList.add('stop');
+  btnLeftElement.innerHTML = 'STOP';
 }
 
 function setSplitBtn() {
-  // ... your code goes here
+  btnRightElement.classList.remove('reset');
+  btnRightElement.classList.add('split');
+  btnRightElement.innerHTML = 'SPLIT';
 }
 
 function setStartBtn() {
-  // ... your code goes here
+  btnLeftElement.classList.remove('stop');
+  btnLeftElement.classList.add('start');
+  btnLeftElement.innerHTML = 'START';
 }
 
 function setResetBtn() {
-  // ... your code goes here
+  btnRightElement.classList.remove('split');
+  btnRightElement.classList.add('reset');
+  btnRightElement.innerHTML = 'RESET';
 }
 
 // Start/Stop Button
 btnLeftElement.addEventListener('click', () => {
   if (btnLeftElement.classList.contains('start')) {
-    btnLeftElement.classList.remove('start');
-    btnLeftElement.classList.add('stop');
-    btnLeftElement.innerHTML = 'STOP';
-    btnRightElement.classList.remove('reset');
-    btnRightElement.classList.add('split');
-    btnRightElement.innerHTML = 'SPLIT';
+    setStopBtn();
+    setSplitBtn();
     chronometer.start(printTime);
-  }
-  else {
-    btnLeftElement.classList.remove('stop');
-    btnLeftElement.classList.add('start');
-    btnLeftElement.innerHTML = 'START';
-    btnRightElement.classList.remove('split');
-    btnRightElement.classList.add('reset');
-    btnRightElement.innerHTML = 'RESET';
+  } else {
+    setStartBtn();
+    setResetBtn();
     chronometer.stop();
   }
 });
 
 // Reset/Split Button
 btnRightElement.addEventListener('click', () => {
-  // ... your code goes here
+  if (btnRightElement.classList.contains('reset')) {
+    chronometer.reset();
+    clearSplits();
+  } else {
+    printSplit();
+  }
 });
